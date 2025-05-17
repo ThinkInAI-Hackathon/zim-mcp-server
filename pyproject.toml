@@ -1,7 +1,7 @@
 [project]
 name = "zim-mcp-server"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server that enables AI models to access and search ZIM format knowledge bases offline"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
