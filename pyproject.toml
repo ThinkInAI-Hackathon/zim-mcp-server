@@ -4,4 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "html2text>=2025.4.15",
+    "libzim>=3.7.0",
+    "mcp[cli]>=1.9.0",
+]
