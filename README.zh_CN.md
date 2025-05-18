@@ -2,33 +2,34 @@
 
 # ZIM MCP Server
 
-[ZIM](https://en.wikipedia.org/wiki/ZIM_(file_format)) (Zeno IMproved) is a file format developed by the nonprofit organization [Kiwix](https://www.kiwix.org/), designed specifically for offline storage and access to Wikipedia and other large reference content. The ZIM format supports high compression rates and fast searching, enabling entire Wikipedia content to be compressed into relatively small files for convenient storage and use, especially in environments without internet connectivity.
+[ZIM](https://en.wikipedia.org/wiki/ZIM_(file_format))（Zeno IMproved）是一种由[Kiwix](https://www.kiwix.org/)非营利组织开发的文件格式，专为离线存储和访问维基百科和其他大型参考内容而设计。ZIM格式支持高压缩率和快速搜索，使得整个维基百科可以被压缩到相对较小的文件中，便于存储和使用，特别是在没有互联网连接的环境中。
 
-ZIM MCP Server provides large language models with the ability to directly access and search content within ZIM files, allowing people to use local AI models for question answering and information retrieval from these offline knowledge resources, even without network access.
+ZIM MCP Server 提供了让大语言模型直接访问和搜索 ZIM 文件中的内容的能力，让人们在没有网络的情况下，也能利用本地的AI大模型对这些离线的知识资源进行问答和信息检索。
 
-## About Kiwix
+## 关于 Kiwix
 
-[Kiwix](https://www.kiwix.org/) is a nonprofit organization dedicated to making online knowledge content (especially Wikipedia, TED talks, etc.) accessible offline. Kiwix has developed tools for creating, viewing, and searching ZIM files, through which people can package large amounts of online knowledge resources into ZIM files for local access. The Kiwix project is particularly important for developing countries and regions without internet connectivity, as it enables people in these areas to access rich knowledge resources, promoting the dissemination of knowledge and equal educational opportunities.
+[Kiwix](https://www.kiwix.org/) 是一个非营利组织，致力于让互联网上的知识内容（特别是维基百科、TED 演讲等）可以离线访问。Kiwix 开发了用于创建、查看和搜索 ZIM 文件的工具，通过这些工具，人们可以将大量的在线知识资源打包成 ZIM 文件并在本地访问。Kiwix 项目对于没有互联网连接的发展中国家和地区尤为重要，它让这些地区的人们也能获取到丰富的知识资源，实现了知识的普及和教育机会的平等。
 
-## Installation and Usage
 
-### Dependencies
+## 安装与运行
 
-- [libzim library](https://github.com/openzim/python-libzim)
-- ZIM files - Various language versions of Wikipedia, Wiktionary, and other ZIM files can be downloaded from the [Kiwix Library](https://browse.library.kiwix.org/)
+### 依赖
 
-### Running
+- [libzim 库](https://github.com/openzim/python-libzim)
+- zim文件 - 可以从 [Kiwix Library](https://browse.library.kiwix.org/) 下载各种语言的维基百科、维基词典等 ZIM 文件
 
-Be sure to specify the directory containing ZIM files as a parameter:
+### 运行
+
+注意指定包含 ZIM 文件的目录作为参数：
 
 ```bash
-# Run using uv
+# 使用 uv 运行
 uv --directory /path/to/repository run server.py /path/to/zim/files
 ```
 
-## Configuration
+## 配置
 
-### Configuration for Claude, DeepChat, etc.
+### 为 Claude, DeepChat等 配置
 
 ```json
 {
@@ -43,41 +44,41 @@ uv --directory /path/to/repository run server.py /path/to/zim/files
 }
 ```
 
-## Available Tools
+## 可用工具
 
-### list_zim_files - List all ZIM files in allowed directories
+### list_zim_files - 列出所有允许目录中的 ZIM 文件
 
-No parameters required.
+不需要参数。
 
-### search_zim_file - Search within ZIM file content
+### search_zim_file - 在 ZIM 文件内容中搜索
 
-**Required parameters:**
-- `zimFilePath` (string): Path to the ZIM file
-- `query` (string): Search query term
+**必需参数:**
+- `zimFilePath` (字符串): ZIM 文件的路径
+- `query` (字符串): 搜索查询词
 
-**Optional parameters:**
-- `limit` (integer, default: 10): Maximum number of results to return
-- `offset` (integer, default: 0): Starting offset for results (for pagination)
+**可选参数:**
+- `limit` (整数, 默认值: 10): 返回的最大结果数
+- `offset` (整数, 默认值: 0): 结果的起始偏移量（用于分页）
 
-### get_zim_entry - Get detailed content of a specific entry in a ZIM file
+### get_zim_entry - 获取 ZIM 文件中特定条目的详细内容
 
-**Required parameters:**
-- `zimFilePath` (string): Path to the ZIM file
-- `entryPath` (string): Entry path, e.g., 'A/Some_Article'
+**必需参数:**
+- `zimFilePath` (字符串): ZIM 文件的路径
+- `entryPath` (字符串): 条目路径，例如 'A/Some_Article'
 
-**Optional parameters:**
-- `maxContentLength` (integer, default: 100000): Maximum length of returned content
+**可选参数:**
+- `maxContentLength` (整数, 默认值: 100000): 返回内容的最大长度
 
-## Examples
+## 示例
 
-### Listing ZIM files:
+### 列出 ZIM 文件：
 ```json
 {
   "name": "list_zim_files"
 }
 ```
 
-Response:
+响应：
 ```
 {
   "Found 2 ZIM files in 1 directories:
@@ -101,7 +102,7 @@ Response:
 }
 ```
 
-### Searching ZIM files:
+### 搜索 ZIM 文件：
 ```json
 {
   "name": "search_zim_file",
@@ -113,7 +114,7 @@ Response:
 }
 ```
 
-Response:
+响应：
 ```
 Found 120 matches for "artificial intelligence", showing 1-3:
 
@@ -130,7 +131,7 @@ Path: A/Philosophy_of_artificial_intelligence
 Snippet: The philosophy of artificial intelligence is a branch of the philosophy of technology that explores artificial intelligence and its implications for knowledge, reality, consciousness, and the human mind. ...
 ```
 
-### Getting ZIM entries:
+### 获取 ZIM 条目：
 ```json
 {
   "name": "get_zim_entry",
@@ -141,7 +142,7 @@ Snippet: The philosophy of artificial intelligence is a branch of the philosophy
 }
 ```
 
-Response:
+响应：
 ```
 # Artificial intelligence
 
@@ -155,6 +156,7 @@ Leading AI textbooks define the field as the study of "intelligent agents": any 
 
 ...
 ```
+
 
 ## License
 

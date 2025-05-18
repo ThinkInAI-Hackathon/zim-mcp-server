@@ -223,8 +223,8 @@ async def search_zim_file(zimFilePath: str, query: str, limit: int = 10, offset:
                             snippet = raw_content
 
                         # Limit length
-                        snippet = snippet[:500].strip(
-                        ) + "..." if len(snippet) > 500 else snippet
+                        snippet = snippet[:1000].strip(
+                        ) + "..." if len(snippet) > 1000 else snippet
                     else:
                         snippet = f"(Unsupported content type: {item.mimetype})"
                 except Exception as e:
