@@ -1,4 +1,4 @@
-[English](README.md) | [中文](README.zh_CN.md) 
+[English](README.md) | [中文](README.zh_CN.md)
 
 # ZIM MCP Server
 
@@ -10,38 +10,69 @@ ZIM MCP Server provides large language models with the ability to directly acces
 
 [Kiwix](https://www.kiwix.org/) is a nonprofit organization dedicated to making online knowledge content (especially Wikipedia, TED talks, etc.) accessible offline. Kiwix has developed tools for creating, viewing, and searching ZIM files, through which people can package large amounts of online knowledge resources into ZIM files for local access. The Kiwix project is particularly important for developing countries and regions without internet connectivity, as it enables people in these areas to access rich knowledge resources, promoting the dissemination of knowledge and equal educational opportunities.
 
-## Installation and Usage
+## Installation
 
-### Dependencies
-
-- [libzim library](https://github.com/openzim/python-libzim)
-- ZIM files - Various language versions of Wikipedia, Wiktionary, and other ZIM files can be downloaded from the [Kiwix Library](https://browse.library.kiwix.org/)
-
-### Running
-
-Be sure to specify the directory containing ZIM files as a parameter:
+### 1. Clone the Repository
 
 ```bash
-# Run using uv
-uv --directory /path/to/repository run server.py /path/to/zim/files
+git clone https://github.com/ThinkInAI-Hackathon/zim-mcp-server.git
 ```
 
-## Configuration
+### 2. Install `uv`
 
-### Configuration for Claude, DeepChat, etc.
+- On Windows:
+  - If you have not set execution policy before, run:
+    ```powershell
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
+  - Otherwise, you can run:
+    ```powershell
+    irm https://astral.sh/uv/install.ps1 | iex
+    ```
+- On MacOS:
+  - Please refer to the [official uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+
+### 3. Install Dependencies
+
+```bash
+cd path\to\zim-mcp-server   # (e.g., D:\zim-mcp-server)
+uv sync
+```
+
+### 4. Prepare ZIM Files
+
+Download ZIM files (e.g., Wikipedia, Wiktionary, etc.) from the [Kiwix Library](https://browse.library.kiwix.org/) and place them in a directory, e.g.,
+
+```
+path\to\zim\files   # (e.g., D:\ZIM)
+```
+
+---
+
+## Configuration for Claude Desktop
+
+The configuration for Claude Desktop requires the local path to your cloned repository.
+
+Add the following to your `claude_desktop_config.json` (replace the paths with your actual local paths):
 
 ```json
-{
+"zim-mcp-server": {
   "command": "uv",
   "args": [
     "--directory",
-    "/path/to/repository",
-    "run", 
+    "path\\to\\zim-mcp-server",   // e.g., D:\\zim-mcp-server
+    "run",
     "server.py",
-    "/path/to/zim/files"
+    "path\\to\\zim\\files"      // e.g., D:\\ZIM
   ]
 }
 ```
+- `"path\\to\\zim-mcp-server"`: Local path to your cloned zim-mcp-server repository (e.g., D:\\zim-mcp-server).
+- `"path\\to\\zim\\files"`: Directory containing your ZIM files (e.g., D:\\ZIM).
+
+Claude Desktop will recognize the server only after this configuration.
+
+---
 
 ## Available Tools
 
@@ -67,6 +98,8 @@ No parameters required.
 
 **Optional parameters:**
 - `maxContentLength` (integer, default: 100000): Maximum length of returned content
+
+---
 
 ## Examples
 
